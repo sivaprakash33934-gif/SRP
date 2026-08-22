@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Sriram Research Park</title>
+  <meta name="description" content="Contact Sriram Research Park — incubation, coworking, partnerships, and more.">
+  <link rel="icon" type="image/svg+xml" href="assets/svg/logos/mark.svg">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="contact">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Loader -->
+  <div class="loader" role="status" aria-label="Loading">
+    <div class="loader-brand">
+      <div class="loader-logo">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 9 L38 34 L24 28.5 L10 34 Z" fill="#fff"/>
+          <circle cx="24" cy="27" r="3.4" fill="#2e7df2"/>
+        </svg>
+      </div>
+      <div class="loader-word"><span>Sriram</span> <span>Research</span> <span>Park</span></div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="site-nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Sriram Research Park home">
+        <span class="brand-mark">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M24 9 L38 34 L24 28.5 L10 34 Z" fill="#fff"/>
+            <circle cx="24" cy="27" r="3.4" fill="#2e7df2"/>
+          </svg>
+        </span>
+        <span class="brand-name">Sriram Research Park<small>formerly Anna Incubator</small></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="incubation.html">Incubation</a>
+        <a class="nav-link" href="coworking.html">Coworking</a>
+        <a class="nav-link" href="people.html">People</a>
+        <a class="nav-link" href="portfolio.html">Portfolio</a>
+        <a class="nav-link" href="events.html">Events</a>
+        <a class="nav-link is-active" href="contact.html" aria-current="page">Contact</a>
+      </nav>
+
+      <a class="btn btn-primary nav-cta" data-magnetic href="incubation.html">Incubate Me</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <header class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1 class="display-2" style="margin-top:16px;">
+          <span class="mask-line"><span class="mask-inner">Contact Us</span></span>
+        </h1>
+        <p class="lead" style="margin-top:20px;max-width:600px;">
+          We would love to hear from you
+        </p>
+      </div>
+    </header>
+
+    <!-- SPLIT LAYOUT -->
+    <section class="section" aria-label="Contact form and information">
+      <div class="container">
+        <div class="split">
+
+          <!-- FORM -->
+          <div class="card form-card contact-form-card">
+            <h2 class="h3" style="margin-bottom:26px;">Send us a message</h2>
+            <form id="contact-form" novalidate>
+              <div class="grid grid-2" style="gap:18px;margin-bottom:18px;">
+                <div class="field">
+                  <label for="cf-name">Your Name</label>
+                  <input id="cf-name" name="name" type="text" placeholder="Jane Doe" required autocomplete="name">
+                </div>
+                <div class="field">
+                  <label for="cf-email">Email</label>
+                  <input id="cf-email" name="email" type="email" placeholder="jane@startup.com" required autocomplete="email">
+                </div>
+              </div>
+              <div class="grid grid-2" style="gap:18px;margin-bottom:18px;">
+                <div class="field">
+                  <label for="cf-phone">Phone</label>
+                  <input id="cf-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="cf-purpose">Purpose</label>
+                  <select id="cf-purpose" name="purpose">
+                    <option value="incubation">Incubation</option>
+                    <option value="coworking">Coworking</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field" style="margin-bottom:22px;">
+                <label for="cf-message">Message</label>
+                <textarea id="cf-message" name="message" placeholder="Tell us about your startup or query…" required></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit" style="width:100%;" data-magnetic>Submit</button>
+              <p class="form-msg" aria-live="polite" style="margin-top:14px;font-size:0.9rem;"></p>
+            </form>
+          </div>
+
+          <!-- INFO -->
+          <div>
+            <div class="card info-card contact-info-card" style="margin-bottom:24px;">
+              <h2 class="h3" style="margin-bottom:10px;">Contact Information</h2>
+
+              <div class="info-row">
+                <span class="icon-tile">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </span>
+                <div>
+                  <h4>Email</h4>
+                  <a href="mailto:contact@sriramresearchpark.org">contact@sriramresearchpark.org</a>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <span class="icon-tile">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <div>
+                  <h4>Phone</h4>
+                  <a href="tel:04422359227">044 - 22359227</a>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <span class="icon-tile">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </span>
+                <div>
+                  <h4>Address</h4>
+                  <p>
+                    Second Floor, Platinum Jubilee Building<br>
+                    AC Tech Campus, Anna University<br>
+                    Guindy, Chennai, Tamil Nadu 600025
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="socials" style="gap:12px;">
+              <a class="social-link" href="#" aria-label="LinkedIn" rel="noopener" style="color:var(--blue-600);border-color:var(--blue-200);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              </a>
+              <a class="social-link" href="#" aria-label="Twitter / X" rel="noopener" style="color:var(--blue-600);border-color:var(--blue-200);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg>
+              </a>
+              <a class="social-link" href="#" aria-label="Instagram" rel="noopener" style="color:var(--blue-600);border-color:var(--blue-200);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section class="section section-tight" aria-label="Location map">
+      <div class="container">
+        <div class="map-frame" role="img" aria-label="Map showing Anna University, Guindy campus location">
+          <div class="map-pin" aria-hidden="true"></div>
+          <div class="map-label">Anna University — Guindy Campus</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand-mark">
+              <svg width="24" height="24" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <path d="M24 9 L38 34 L24 28.5 L10 34 Z" fill="#fff"/>
+                <circle cx="24" cy="27" r="3.4" fill="#2e7df2"/>
+              </svg>
+            </span>
+            <span class="brand-name">Sriram Research Park<small>formerly Anna Incubator</small></span>
+          </a>
+          <p>Create a nurturing, open environment for entrepreneurs to grow and scale.</p>
+          <div class="socials" style="margin-top:22px;">
+            <a class="social-link" href="#" aria-label="LinkedIn" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </a>
+            <a class="social-link" href="#" aria-label="Twitter / X" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg>
+            </a>
+            <a class="social-link" href="#" aria-label="Instagram" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="about.html">About Us</a>
+          <a href="incubation.html">Incubation</a>
+          <a href="coworking.html">Coworking</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="events.html">Events</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="people.html">Our People</a>
+          <a href="portfolio.html">Startup Portfolio</a>
+          <a href="incubation.html">Become an Incubatee</a>
+          <a href="contact.html">Book a Visit</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:contact@sriramresearchpark.org">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            contact@sriramresearchpark.org
+          </a>
+          <a href="tel:04422359227">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            044 - 22359227
+          </a>
+          <span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Second Floor, Platinum Jubilee Building, AC Tech Campus, Anna University, Guindy, Chennai, Tamil Nadu 600025
+          </span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span data-year>2026</span> Sriram Research Park. All rights reserved.</p>
+        <p>Formerly Anna Incubator</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP + Lenis (CDN — site degrades gracefully if unavailable) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <!-- Foundation -->
+  <script defer src="assets/js/utils/debug.js"></script>
+  <script defer src="assets/js/utils/dom.js"></script>
+  <script defer src="assets/js/utils/helpers.js"></script>
+  <script defer src="assets/js/utils/feature-detect.js"></script>
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/js/theme.js"></script>
+  <script defer src="assets/js/motion-config.js"></script>
+  <script defer src="assets/js/manifest.js"></script>
+  <script defer src="assets/js/event-bus.js"></script>
+  <script defer src="assets/js/performance.js"></script>
+  <script defer src="assets/js/utils/observers.js"></script>
+
+  <!-- Presets -->
+  <script defer src="assets/js/animations/fade.js"></script>
+  <script defer src="assets/js/animations/slide.js"></script>
+  <script defer src="assets/js/animations/depth.js"></script>
+  <script defer src="assets/js/animations/mask.js"></script>
+  <script defer src="assets/js/animations/wave.js"></script>
+
+  <!-- Components -->
+  <script defer src="assets/js/components/cursor.js"></script>
+  <script defer src="assets/js/components/magnetic.js"></script>
+  <script defer src="assets/js/components/progress-bar.js"></script>
+  <script defer src="assets/js/components/counters.js"></script>
+  <script defer src="assets/js/components/hover.js"></script>
+  <script defer src="assets/js/components/page-transition.js"></script>
+
+  <!-- Manager & routes -->
+  <script defer src="assets/js/manager.js"></script>
+  <script defer src="assets/js/routes.js"></script>
+
+  <!-- Modules -->
+  <script defer src="assets/js/modules/loader.js"></script>
+  <script defer src="assets/js/modules/navbar.js"></script>
+  <script defer src="assets/js/modules/page-hero.js"></script>
+  <script defer src="assets/js/modules/footer.js"></script>
+  <script defer src="assets/js/modules/hero.js"></script>
+  <script defer src="assets/js/modules/stats.js"></script>
+  <script defer src="assets/js/modules/showcase.js"></script>
+  <script defer src="assets/js/modules/offerings.js"></script>
+  <script defer src="assets/js/modules/partners.js"></script>
+  <script defer src="assets/js/modules/testimonials.js"></script>
+  <script defer src="assets/js/modules/about.js"></script>
+  <script defer src="assets/js/modules/values.js"></script>
+  <script defer src="assets/js/modules/people-preview.js"></script>
+  <script defer src="assets/js/modules/pillars.js"></script>
+  <script defer src="assets/js/modules/who-apply.js"></script>
+  <script defer src="assets/js/modules/inc-partners.js"></script>
+  <script defer src="assets/js/modules/co-features.js"></script>
+  <script defer src="assets/js/modules/beyond-desk.js"></script>
+  <script defer src="assets/js/modules/gallery.js"></script>
+  <script defer src="assets/js/modules/co-cta.js"></script>
+  <script defer src="assets/js/modules/people-page.js"></script>
+  <script defer src="assets/js/modules/mentors.js"></script>
+  <script defer src="assets/js/modules/portfolio-page.js"></script>
+  <script defer src="assets/js/modules/events-page.js"></script>
+  <script defer src="assets/js/modules/newsletter.js"></script>
+  <script defer src="assets/js/modules/contact-page.js"></script>
+
+  <!-- Entry -->
+  <script defer src="assets/js/main.js"></script>
+</body>
+</html>
