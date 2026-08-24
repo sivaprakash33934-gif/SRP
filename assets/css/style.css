@@ -1188,3 +1188,374 @@ body.tier-lite .blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .hero-logo { opacity: 1 !important; transform: none !important; }
   .hero-logo::after { animation: none !important; }
 }
+/* ==========================================================================
+   SRP GOLD + SOFT-BLACK UPDATE
+   Paste at the bottom of assets/css/style.css
+   ========================================================================== */
+
+:root {
+  /* Black / soft-black tokens */
+  --black: #05070c;
+  --black-800: #0b101b;
+  --black-700: #141c2b;
+
+  /* Move dark foundation toward black */
+  --ink: var(--black);
+  --blue-900: var(--black);
+  --blue-800: var(--black);
+
+  /* Gold glow + black shadows */
+  --glow-gold: rgba(212, 175, 80, 0.28);
+  --shadow-black: 0 8px 22px rgba(5, 7, 12, 0.4);
+  --shadow-black-strong: 0 12px 30px rgba(5, 7, 12, 0.55);
+
+  /* Dark-blue gradient replaced with soft-black gradient */
+  --grad-primary: linear-gradient(
+    135deg,
+    var(--black) 0%,
+    var(--black-800) 55%,
+    var(--black-700) 100%
+  );
+
+  /* Hero/page background fallback */
+  --grad-hero: linear-gradient(180deg, var(--wash) 0%, var(--paper) 100%);
+
+  /* Heading gradient becomes black/soft-black */
+  --grad-text: linear-gradient(120deg, var(--black), var(--black-700));
+}
+
+/* Global focus */
+:focus-visible {
+  outline: 3px solid var(--gold-600);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Links / small labels */
+a {
+  color: var(--blue-800);
+}
+
+.eyebrow {
+  color: var(--blue-800);
+}
+
+.brand-name small {
+  color: var(--blue-800);
+}
+
+.loader-word {
+  color: var(--blue-800);
+}
+
+/* Navbar */
+.nav-link:hover {
+  color: var(--ink);
+  background: var(--gold-100);
+}
+
+.nav-link::after {
+  background: var(--grad-gold);
+}
+
+.nav-link.is-active {
+  color: var(--ink);
+}
+
+/* Progress bar */
+.progress-bar {
+  background: var(--grad-gold);
+  box-shadow: 0 0 10px var(--glow-gold);
+}
+
+/* Cursor */
+.cursor-dot {
+  background: var(--gold-600);
+}
+
+.cursor-ring {
+  border-color: var(--glow-gold);
+}
+
+.cursor-ring.is-hover {
+  border-color: var(--gold-500);
+  background: var(--glow-gold);
+}
+
+/* Primary buttons */
+.btn-primary {
+  background: var(--black);
+  box-shadow: var(--shadow-black);
+}
+
+.btn-primary:hover {
+  background: var(--black-800);
+  box-shadow:
+    var(--shadow-black-strong),
+    0 0 0 1px var(--glow-gold);
+}
+
+.blue-box .btn-primary {
+  background: var(--black);
+  color: var(--gold-400);
+  box-shadow: var(--shadow-black);
+}
+
+.blue-box .btn-primary:hover {
+  background: var(--black-800);
+  color: var(--gold-300);
+  box-shadow:
+    var(--shadow-black-strong),
+    0 0 0 1px var(--glow-gold);
+}
+
+/* Outline buttons */
+.btn-outline {
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  border-color: var(--gold-500);
+  background: var(--gold-100);
+  color: var(--ink);
+}
+
+/* Ghost button */
+.btn-ghost:hover {
+  color: var(--ink);
+}
+
+/* Card hover border/glow */
+.card::before {
+  border-width: 2px;
+  background: linear-gradient(
+    135deg,
+    var(--gold-400),
+    var(--gold-600)
+  ) border-box;
+}
+
+.card:hover .icon-tile {
+  background: var(--grad-primary);
+  color: var(--paper);
+  box-shadow: var(--shadow-black);
+}
+
+.card-outline {
+  border-color: var(--gold-200);
+}
+
+.card-outline:hover {
+  border-color: var(--gold-500);
+}
+
+.showcase-card.is-active {
+  border-color: var(--gold-500);
+}
+
+/* Showcase cards */
+.showcase-logo {
+  background: var(--gold-100);
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+.showcase-cat {
+  color: var(--blue-800);
+}
+
+.showcase-amt {
+  background: var(--gold-100);
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+/* Partner chips */
+.logo-chip {
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+.logo-chip:hover {
+  border-color: var(--gold-500);
+  background: var(--gold-100);
+}
+
+/* Testimonials */
+.testi-quote::before {
+  color: var(--blue-800);
+}
+
+.avatar {
+  background: var(--gold-100);
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+/* Events / timeline */
+.event-date {
+  background: var(--gold-100);
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+.event-points li::before {
+  background: var(--gold-500);
+}
+
+.timeline-dot {
+  border-color: var(--gold-600);
+}
+
+.timeline-item.is-reached .timeline-dot {
+  box-shadow: 0 0 0 7px var(--glow-gold);
+}
+
+/* Gallery */
+.gallery-tile {
+  border-color: var(--gold-100);
+  color: var(--blue-800);
+}
+
+.gallery-tile:hover {
+  border-color: var(--gold-400);
+}
+
+.gallery-tile::after {
+  border-color: var(--gold-400);
+}
+
+.gallery-tile span {
+  color: var(--blue-800);
+}
+
+/* Forms */
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.newsletter input:focus {
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 4px var(--glow-gold);
+}
+
+/* Map */
+.map-frame {
+  border-color: var(--gold-200);
+}
+
+.map-pin {
+  box-shadow: var(--shadow-black-strong);
+}
+
+.map-label {
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+/* Footer */
+.site-footer {
+  background: var(--black);
+  border-top: 1px solid var(--gold-500);
+}
+
+.site-footer::before {
+  background: radial-gradient(
+    50% 60% at 80% 0%,
+    var(--glow-gold),
+    transparent 60%
+  );
+  opacity: 0.55;
+}
+
+.footer-brand .brand-name small {
+  color: var(--gold-300);
+}
+
+.footer-col svg {
+  color: var(--gold-300);
+}
+
+.social-link:hover {
+  background: var(--gold-600);
+  border-color: var(--gold-400);
+  color: var(--black);
+  box-shadow: 0 8px 20px var(--glow-gold);
+}
+
+/* Badges / pills */
+.badge {
+  background: var(--gold-100);
+  border-color: var(--gold-300);
+  color: var(--blue-800);
+}
+
+.filter-pill:hover {
+  border-color: var(--gold-500);
+  background: var(--gold-100);
+  color: var(--ink);
+}
+
+/* Coming soon */
+.coming-soon {
+  border-color: var(--gold-400);
+  background: var(--gold-100);
+}
+
+.coming-ring {
+  border-color: var(--gold-300);
+  border-top-color: var(--gold-600);
+}
+
+.coming-ring::after {
+  background: var(--gold-500);
+}
+
+/* Hero scroll */
+.hero-scroll {
+  color: var(--blue-800);
+}
+
+.hero-scroll .mouse {
+  border-color: var(--gold-400);
+}
+
+.hero-scroll .mouse::after {
+  background: var(--gold-500);
+}
+
+/* Section divider */
+.section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-200) 20%,
+    var(--gold-200) 80%,
+    transparent
+  );
+}
+
+/* Value / person / links */
+.value-num {
+  color: var(--blue-800);
+}
+
+.person-role {
+  color: var(--blue-800);
+}
+
+.link-arrow {
+  color: var(--blue-800);
+}
+
+/* Replace blue dot glow with gold glow */
+@keyframes dotGlow {
+  0% {
+    box-shadow: 0 0 0 0 var(--glow-gold);
+  }
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+
