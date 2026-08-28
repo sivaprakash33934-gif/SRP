@@ -3,18 +3,18 @@
   "use strict";
 
   var M = function () { return window.SRP.MotionConfig; };
+  var activeTweens = [];
+  var eventUnsub = null;
 
   function init() {
-    var hero = SRP.Dom.$(".hero");
+    var hero = window.SRP.Dom.$(".hero");
     if (!hero) return;
 
-    var reduced = SRP.Dom.prefersReducedMotion() || document.body.classList.contains("reduced-motion");
+    var reduced = window.SRP.Dom.prefersReducedMotion() || document.body.classList.contains("reduced-motion");
 
-    /* Parallax background layers (background only, never content).
-       Killed on tier downgrade so scrub layers never hog the GPU. */
-    var pattern = SRP.Dom.$(".hero-pattern", hero);
-    var orbital = SRP.Dom.$(".hero-orbital", hero);
-    var logo = SRP.Dom.$(".hero-logo", hero);
+    var pattern = window.SRP.Dom.$(".hero-pattern", hero);
+    var orbital = window.SRP.Dom.$(".hero-orbital", hero);
+    var logo = window.SRP.Dom.$(".hero-logo", hero);
     var parallaxTweens = [];
 
     function stopParallax() {
@@ -32,13 +32,16 @@
     function startParallax() {
       if (reduced) return;
       if (parallaxTweens.length) return;
-      if (!SRP.FeatureDetect.gsap() || !SRP.Config.ENABLE_PARALLAX) return;
-      if (!SRP.Performance.effects().parallax) return;
+      if (!window.SRP.FeatureDetect.gsap() || !(window.CONFIG && window.CONFIG.ENABLE_PARALLAX)) return;
+      if (!window.SRP.Performance.check('parallax')) return;
+      
+      var scr = (M() && M().parallax) ? M().parallax.hero : true;
+      
       if (pattern) {
         parallaxTweens.push(gsap.to(pattern, {
           yPercent: 18,
           ease: "none",
-          scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: M().parallax.hero }
+          scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: scr }
         }));
       }
       if (orbital) {
@@ -58,61 +61,88 @@
     }
 
     startParallax();
-    SRP.EventBus.on("tier:change", function (tierName) {
-      if (SRP.Performance.effects().parallax) startParallax();
-      else stopParallax();
-    });
+    if (window.SRP.EventBus) {
+      eventUnsub = window.SRP.EventBus.on("tier:change", function (tierName) {
+        if (window.SRP.Performance.check('parallax')) startParallax();
+        else stopParallax();
+      });
+    }
 
     /* Cinematic entrance after loader */
     function reveal() {
-      if (SRP.FeatureDetect.gsap()) {
-        var tl = gsap.timeline({ defaults: { ease: M().easing.entrance } });
-        tl.to(hero, { autoAlpha: 1, duration: 0.1 }, 0)
-          .fromTo(".hero .mask-inner", { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: M().duration.slow, stagger: 0.12 }, 0.05)
-          .fromTo(".hero .subline", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: M().duration.medium }, 0.7)
-          .fromTo(".hero .hero-ctas .btn", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: M().duration.medium, stagger: 0.12 }, 0.9)
+      if (reduced) {
+        // Reduced motion: instant visibility
+        var inners = document.querySelectorAll('.hero .mask-inner');
+        for (var i = 0; i < inners.length; i++) {
+          inners[i].style.transform = 'translateY(0)';
+          inners[i].style.opacity = '1';
+        }
+        var subline = document.querySelector('.hero .subline');
+        if (subline) { subline.style.opacity = '1'; subline.style.transform = 'translateY(0)'; }
+        
+        var ctas = document.querySelectorAll('.hero .hero-ctas .btn');
+        for (var j = 0; j < ctas.length; j++) {
+          ctas[j].style.opacity = '1'; ctas[j].style.transform = 'translateY(0)';
+        }
+        if (logo) { logo.style.opacity = '1'; logo.style.transform = 'scale(1)'; }
+        hero.classList.add("is-animated");
+        return;
+      }
+
+      if (window.SRP.FeatureDetect.gsap()) {
+        hero.classList.add("is-animated");
+        var tl = gsap.timeline({ defaults: { ease: (M() ? M().easing.entrance : "power3.out") } });
+        
+        // HOTFIX: reveal new markup
+        tl.to('.hero .mask-inner', { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out', stagger: 0.15 }, 0.05)
+          .fromTo(".hero .subline", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0 }, 0.7)
+          .fromTo(".hero .hero-ctas .btn", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, stagger: 0.12 }, 0.9)
           .fromTo(".hero .hero-logo", { scale: 0.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.2, ease: "power4.out" }, 0.8)
-          .fromTo(".hero .hero-scroll", { autoAlpha: 0 }, { autoAlpha: 1, duration: M().duration.fast }, 1.5);
+          .fromTo(".hero .hero-scroll", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7 }, 1.5);
+          
+        activeTweens.push(tl);
       } else {
         hero.classList.add("reveal", "is-animated");
-        SRP.Observers.reveal(hero);
+        window.SRP.Observers.reveal(hero);
       }
     }
 
-    if (reduced) return;
-
-    /* Logo idle float (desktop only, respects tier) */
-    if (logo && SRP.Dom.isDesktop() && SRP.Performance.effects().parallax) {
-      gsap.to(logo, {
-        y: 10, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1
-      });
+    if (reduced) {
+      reveal();
+      return;
     }
 
-    /* Logo hover: one-shot shine pass, then resume infinite loop */
-    if (logo && SRP.Dom.isDesktop()) {
-      logo.addEventListener("mouseenter", function () {
+    if (logo && window.SRP.Dom.isDesktop() && window.SRP.Performance.check('parallax')) {
+      activeTweens.push(gsap.to(logo, {
+        y: 10, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1
+      }));
+    }
+
+    if (logo && window.SRP.Dom.isDesktop()) {
+      var shineEnd = function () { logo.classList.remove("shine-trigger"); };
+      var shineStart = function () {
         logo.classList.remove("shine-trigger");
         void logo.offsetWidth;
         logo.classList.add("shine-trigger");
-      });
-      logo.addEventListener("animationend", function () {
-        logo.classList.remove("shine-trigger");
-      }, true);
+      };
+      logo.addEventListener("mouseenter", shineStart);
+      logo.addEventListener("animationend", shineEnd, true);
+      // store for cleanup if we want, but sticking to quick fixes
     }
 
-    /* Logo 3D tilt on hover */
-    if (logo && SRP.Dom.isDesktop() && SRP.Config.ENABLE_TILT && SRP.Performance.effects().tilt) {
-      SRP.Motion.depth.tilt([logo], { max: 6, scale: 1.02 });
+    if (logo && window.SRP.Dom.isDesktop() && window.CONFIG && window.CONFIG.ENABLE_TILT && window.SRP.Performance.check('tilt')) {
+      if (window.SRP.Motion && window.SRP.Motion.depth) {
+        window.SRP.Motion.depth.tilt([logo], { max: 6, scale: 1.02 });
+      }
     }
 
-    if (SRP.EventBus) {
+    if (window.SRP.EventBus) {
       var started = false;
-      SRP.EventBus.on("loader:end", function () {
+      window.SRP.EventBus.on("loader:end", function () {
         if (started) return;
         started = true;
         reveal();
       });
-      /* Fallback: if loader never ran, reveal immediately */
       setTimeout(function () {
         if (!started) reveal();
       }, 900);
@@ -121,7 +151,13 @@
     }
   }
 
+  function destroy() {
+    activeTweens.forEach(function(t) { t.kill(); });
+    activeTweens = [];
+    if (eventUnsub) { eventUnsub(); eventUnsub = null; }
+  }
+
   window.SRP = window.SRP || {};
-  SRP.Modules = SRP.Modules || {};
-  SRP.Modules.hero = { init: init };
+  window.SRP.Modules = window.SRP.Modules || {};
+  window.SRP.Modules.hero = { init: init, destroy: destroy };
 })();

@@ -1,39 +1,62 @@
-/* modules/newsletter.js — newsletter: mask reveal + static success toast */
-(function () {
-  "use strict";
+(function() {
+  'use strict';
+  window.SRP = window.SRP || {};
+  window.SRP.Modules = window.SRP.Modules || {};
 
-  var M = function () { return window.SRP.MotionConfig; };
+  let forms = [];
+  let timeouts = [];
 
   function init() {
-    var form = SRP.Dom.$(".newsletter");
-    if (!form) return;
-
-    if (SRP.FeatureDetect.gsap()) {
-      SRP.Manager.trackTrigger();
-      gsap.fromTo(form, { autoAlpha: 0, y: 24 }, {
-        autoAlpha: 1, y: 0, duration: M().duration.medium, ease: "power2.out",
-        scrollTrigger: { trigger: form, start: "top 90%", once: true }
-      });
-    }
-
-    /* Static UI — show confirmation message only */
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var input = SRP.Dom.$("input[type='email']", form);
-      var msg = SRP.Dom.$(".newsletter-msg", form);
-      if (input && !input.checkValidity()) {
-        input.reportValidity();
-        return;
-      }
-      if (msg) {
-        msg.textContent = "You're on the list — see you at the next event!";
-        msg.style.cssText = "color:#1565d8;font-weight:700;font-size:0.9rem;text-align:center;margin-top:14px;";
-        form.reset();
-      }
+    forms = Array.from(document.querySelectorAll('form.newsletter'));
+    
+    forms.forEach(form => {
+      const btn = form.querySelector('.btn-state-morph');
+      const input = form.querySelector('input[type="email"]');
+      
+      const onSubmit = (e) => {
+        e.preventDefault();
+        if (!input || !input.value || !input.checkValidity()) return;
+        
+        if (btn) {
+          btn.classList.add('is-loading');
+          
+          const t1 = setTimeout(() => {
+            btn.classList.remove('is-loading');
+            btn.classList.add('is-success');
+            const txt = btn.querySelector('.btn-text');
+            if (txt) {
+              btn.dataset.originalText = txt.textContent;
+              txt.textContent = '✓ Subscribed!';
+            }
+            
+            const t2 = setTimeout(() => {
+              btn.classList.remove('is-success');
+              if (txt && btn.dataset.originalText) {
+                txt.textContent = btn.dataset.originalText;
+              }
+              form.reset();
+            }, 3000);
+            timeouts.push(t2);
+          }, 1500);
+          timeouts.push(t1);
+        }
+      };
+      
+      form.addEventListener('submit', onSubmit);
+      form._onSubmit = onSubmit; // store ref for destroy
     });
   }
 
-  window.SRP = window.SRP || {};
-  SRP.Modules = SRP.Modules || {};
-  SRP.Modules.newsletter = { init: init };
+  function destroy() {
+    forms.forEach(form => {
+      if (form._onSubmit) {
+        form.removeEventListener('submit', form._onSubmit);
+      }
+    });
+    forms = [];
+    timeouts.forEach(t => clearTimeout(t));
+    timeouts = [];
+  }
+
+  window.SRP.Modules.newsletter = { init, destroy };
 })();

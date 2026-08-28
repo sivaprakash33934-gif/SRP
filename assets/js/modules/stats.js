@@ -1,31 +1,75 @@
-/* modules/stats.js — blue stat cards: staggered slide + count-up + burst */
-(function () {
-  "use strict";
+(function() {
+  'use strict';
+  window.SRP = window.SRP || {};
+  window.SRP.Modules = window.SRP.Modules || {};
 
-  var M = function () { return window.SRP.MotionConfig; };
+  let observer = null;
+  let rafIds = [];
+  let countersFinished = 0;
 
   function init() {
-    var section = SRP.Dom.$(".stats-bar");
-    var cards = SRP.Dom.$$(".stats-bar .stat-card");
-    if (!cards.length) return;
+    const statCards = document.querySelectorAll('.stat-card .stat-num, .stat-num');
+    if (statCards.length === 0) return;
 
-    if (SRP.FeatureDetect.gsap()) {
-      SRP.Manager.trackTrigger();
-      gsap.fromTo(cards, { autoAlpha: 0, x: 80 }, {
-        autoAlpha: 1, x: 0, duration: M().duration.medium, ease: M().easing.entrance,
-        stagger: 0.12, force3D: true,
-        scrollTrigger: { trigger: section, start: "top 82%", once: true }
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const duration = 2000;
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+          const suffix = el.getAttribute('data-suffix') || '';
+          
+          if (prefersReducedMotion) {
+            el.textContent = target + suffix;
+            countersFinished++;
+            checkComplete(statCards.length);
+          } else {
+            let start = null;
+            const step = (timestamp) => {
+              if (!start) start = timestamp;
+              const progress = Math.min((timestamp - start) / duration, 1);
+              // ease-out
+              const easeProgress = 1 - Math.pow(1 - progress, 3);
+              const current = Math.floor(easeProgress * target);
+              el.textContent = current + suffix;
+              
+              if (progress < 1) {
+                const id = window.requestAnimationFrame(step);
+                rafIds.push(id);
+              } else {
+                el.textContent = target + suffix;
+                countersFinished++;
+                checkComplete(statCards.length);
+              }
+            };
+            const id = window.requestAnimationFrame(step);
+            rafIds.push(id);
+          }
+          observer.unobserve(el);
+        }
       });
-    } else {
-      cards.forEach(function (c) { c.classList.add("reveal-r"); });
-      SRP.Observers.reveal(cards, { stagger: 0.12 });
-    }
+    }, { threshold: 0.1 });
 
-    /* Count-up (works at all animation levels) */
-    SRP.Components.Counters.init(cards.map(function (c) { return c.querySelector(".stat-num"); }).filter(Boolean));
+    statCards.forEach(card => observer.observe(card));
   }
 
-  window.SRP = window.SRP || {};
-  SRP.Modules = SRP.Modules || {};
-  SRP.Modules.stats = { init: init };
+  function checkComplete(total) {
+    if (countersFinished === total && window.SRP.EventBus) {
+      window.SRP.EventBus.emit('stats:complete');
+    }
+  }
+
+  function destroy() {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    rafIds.forEach(id => window.cancelAnimationFrame(id));
+    rafIds = [];
+    countersFinished = 0;
+  }
+
+  window.SRP.Modules.stats = { init, destroy };
 })();
